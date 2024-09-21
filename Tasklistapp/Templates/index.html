@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  <title>Welcome page</title>
+{% endblock title %}
+
+{% block content %}
+<div class= "container" >
+
+    {% if messages %}
+        {% for message in messages%}
+            <div class="alert alert-primary alert-dismissible fade show row mt-3" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class =" row mt-5">
+
+        <div class = "col-lg-4" >
+            <img src = "{% static "images/img1.jpg" %}" alt = " notes"  class="rounded-sm shadow" width = "350" height = "300">
+        </div>
+
+        <div class = "col-lg-4">
+            <img src = "{% static "images/img2.jpg" %}" alt = " notes" class="rounded-sm shadow" width = "350" height = "300">
+        </div>
+
+        <div class = "col-lg-4">
+            <img src = "{% static "images/img3.jpg" %}" alt = " notes" class="rounded-sm shadow" width = "350" height = "300">
+        </div>
+    </div>
+    <div class = "row mt-5">
+        <div class ="col-md-10 offset-md-1"><!--This is used to center the div, allowing the text to take 10 spaces and the offset means cetering the div by leaving 1 space on both sides of the screen. Because the screen has 12 spaces-->
+            <center><p class = "h1">Welcome to Todolist Home Page</h1></center>
+            <center><p class =" h2 mt-3">"List out your tasks, Stay organized"</p></center>
+            <center><p class =" h3">Be sure to Update all your tasks once completed</p></center>
+            <center><a href = " {% url "login" %}"<button type="button" class="btn btn-secondary btn-lg mt-3 shadow">Get Started!</a></button></center>
+        </div>
+    </div>    
+
+
+</div>
+{% endblock content %}

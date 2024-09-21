@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Todolist</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class = " container">
+  <br>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+   
+      {% endfor %}
+    {% endif %}
+  <form method = "POST" class = "row">
+    {% csrf_token %}
+      <label class = " col-lg-5"></label>
+      <input type="text" class="form-control col-lg-6" name = "task" placeholder="Enter Task">
+      <button type="submit" class="btn btn-primary col-lg-1">Add Task</button>
+  </form>
+
+</br>
+
+  <table class="table table-bordered text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th class="col-7">Task</th>
+        <th class="col-3">Done</th>
+        <th class="col-1">Edit</th>
+        <th class="col-1">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if context %}
+      {% for a in context %}
+        {% if a.done %}
+    
+          <tr class ="table-success ">
+              <td class = "col-7"><del>{{a.task}}<del></td>
+              <td class = "col-3"><a href = {% url "pending" a.id %}><button type="button" class="btn btn-outline-dark">Completed</button></a></td>
+              <td class = "col-1"><a href = {% url "edit" a.id %}><button type="button" class="btn btn-outline-warning">Edit</button></a></td>
+              <td class = "col-1"><a href = {% url "delete" a.id %}><button type="button" class="btn btn-outline-danger">Delete</button></a> </td>
+          </tr>
+        {% else %}
+          <tr >
+            <td class = "col-7">{{a.task}}</td>
+            <td class = "col-3"><a href = {% url "completed" a.id %}><button type="button" class="btn btn-outline-dark">Pending</button></a></td>
+            <td class = "col-1"><a href = {% url "edit" a.id %}><button type="button" class="btn btn-outline-warning">Edit</button></a></td>
+            <td class = "col-1"><a href = {% url "delete" a.id %}><button type="button" class="btn btn-outline-danger">Delete</button></a> </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endif %}  
+
+    </tbody>
+
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item"><a class="page-link" href="?pg=1"><<</a></li>
+      {% if context.has_previous %}
+        <li class="page-item"><a class="page-link" href="?pg={{context.previous_page_number}}">{{context.previous_page_number}}</a></li>
+      {% endif %}
+
+      <li class="page-item"><a class="page-link" href="?pg={{context.number}}">{{context.number}}</a></li>
+
+      {% if context.has_next %}
+        <li class="page-item"><a class="page-link" href="?pg={{context.next_page_number}}">{{context.next_page_number}}</a></li>
+      {% endif %}
+      <li class="page-item"><a class="page-link" href="?pg={{context.paginator.num_pages}}">>></a>
+      </li>
+    </ul>
+  </nav>
+ 
+</div>
+{% endblock content %}
