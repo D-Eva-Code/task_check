@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-
+import os
 import environ
 env = environ.Env()
 environ.Env.read_env() #to read the env file
@@ -99,8 +99,6 @@ DATABASES = {
         'PORT': env('DJANGO_DB_PORT'),
     }
 }
-
-
 
 
 # Password validation

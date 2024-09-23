@@ -1,2 +1,2 @@
-web:gunicorn taskmate.wsgi:application --log-file-
+web:gunicorn taskmate.wsgi:application 
 release: python manage.py migrate

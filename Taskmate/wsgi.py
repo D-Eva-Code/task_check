@@ -8,9 +8,14 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
+sys.path.append('D:\\taskmate project\\taskmate\\Taskmate') 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Taskmate.settings')
 
 application = get_wsgi_application()
+
+
+
