@@ -20,6 +20,7 @@ def todolist(request):
     else:
         
         altask = Alltask.objects.filter(owner=request.user)
+        altask = Alltask.objects.all().order_by('id')# Order the tasks by 'id'
         paginator = Paginator(altask,5)# sections the table or number of items in each page to be 5 and then continue from the next page
         page = request.GET.get('pg')# get the page number
         altask= paginator.get_page(page)# get the tasks for the current page
