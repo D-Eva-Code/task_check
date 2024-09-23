@@ -1,0 +1,22 @@
+databases:
+  - name: Taskmatedb
+    plan: free
+    databaseName: Taskmate
+    user: Taskmate
+
+services:
+  - type: web
+    plan: free
+    name: Taskmate
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn Taskmate.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Taskmatedb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
